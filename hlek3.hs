@@ -1,6 +1,8 @@
 -- import Data.Char  
 -- import Data.List 
 import Control.Applicative
+import Data.Monoid
+
 
 a = [(+ 10), (* 4), (/ 2)] <*> [1,2,3,4]
 b = [(+),(*)] <*> [1,2] <*> [3,4]  
@@ -65,3 +67,13 @@ z1 = [(+1),(*100),(*5)] <*> [1,2,3]
 
 z2 = getZipList $ ZipList [(+1),(*100),(*5)] <*> ZipList [1,2,3] 
 -- z3 = ZipList [(+1),(*100),(*5)] <*> ZipList [1,2,3] 
+
+--MONOIDS
+
+lengthCompare :: String -> String -> Ordering  
+lengthCompare x y = (length x `compare` length y) `mappend`  -- 1. Sammenligne lengden på string-en
+                    (vowels x `compare` vowels y) `mappend`  -- 2. Sammenligne hvem som har mest vokaler
+                    (x `compare` y)                          -- 3. Sammenligne alfabetisk
+    where vowels = length . filter (`elem` "aeiou")  
+
+
