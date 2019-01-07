@@ -10,6 +10,10 @@ doubleMe x = x + x
 fib = 1.0:1.0:[a + b | (a, b) <- zip fib (tail fib)]
 fib30 = fib !! 30
 
+-- Bedre fib?
+fibs = 0:scanl (+) 1 fibs
+
+
 fibdiv' :: RealFloat a => [a] -> [a]
 fibdiv' [] = []
 fibdiv' [e] = []

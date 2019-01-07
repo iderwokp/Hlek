@@ -43,3 +43,4 @@ in3' start = return start >>= moveKnight >>= moveKnight >>= moveKnight
 canReachIn3 :: KnightPos -> KnightPos -> Bool  
 canReachIn3 start end = end `elem` in3 start  
 
+---------------------------------------------------------------------
