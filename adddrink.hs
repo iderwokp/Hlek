@@ -36,3 +36,26 @@ gcd' a b
 
 
 -- mapM_ putStrLn $ snd $ runWriter (gcd' 8 3)
+
+
+--------------------------------------------------------
+
+keepSmall :: Int -> Writer [String] Bool
+keepSmall x
+    | x < 4 = do
+      tell ["Keeping " ++ show x]
+      return True
+    | otherwise = do
+      tell [show x ++ " is too large, throwing it away"]
+      return False
+
+
+-- fst $ runWriter $ filterM keepSmall [9,1,5,2,10,3]
+-- mapM_ putStrLn $ snd $ runWriter $ filterM keepSmall [9,1,5,2,10,3]
+
+------------------------------------------
+
+powerset :: [a] -> [[a]]
+powerset xs = filterM (\x -> [True, False]) xs
+
+-- powerset [1,2,3]

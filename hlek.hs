@@ -94,6 +94,13 @@ quicksort (x:xs) =
     in  smallerSorted ++ [x] ++ biggerSorted  
 
 --------------------------------------------
+kusort :: (Ord a) => [a] -> [a]
+kusort [] = []
+kusort (x:xs) = kusort sm ++ [x] ++ kusort bi
+       where
+          sm = [a | a <- xs, a <= x]
+          bi = [b | b <- xs, b > x]
+
 
 
 
