@@ -28,6 +28,10 @@ factorial 0 = 1
 factorial n = n * factorial (n - 1)  
 -------------------------------------
 
+
+
+
+
 bmiTell :: (RealFloat a) => a -> String  
 bmiTell bmi  
     | bmi <= 18.5 = "You're underweight, you emo, you!"  
