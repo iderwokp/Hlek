@@ -13,4 +13,11 @@ kvot [y] = []
 kvot (x:y:ys) = y/x : kvot (y:ys)
 
 
+-- *Main> map (Circle (Point 0 0)) [20, 30, 40]
+-- [Circle (Point 0.0 0.0) 20.0,Circle (Point 0.0 0.0) 30.0,Circle (Point 0.0 0.0) 40.0]
+-- *Main> map area $ map (Circle (Point 0 0)) [20, 30, 40]
+-- [1256.6371,2827.4333,5026.5483]
+-- *Main> kvot . map area $ map (Circle (Point 0 0)) [20, 30, 40]
+-- [2.25,1.7777778]
+
 
