@@ -1,7 +1,7 @@
 
-romToInt ::Char-> Int
--- romToInt [] = 0
-romToInt s 
+romDigit ::Char-> Int
+-- romDigit [] = 0
+romDigit s 
     | s == 'I' = 1
     | s == 'V' = 5
     | s == 'X' = 10
@@ -15,7 +15,7 @@ getThunk :: [Char] -> [Char]
 getThunk [] = []
 getThunk [x] = [x]
 getThunk (x:y:xs) 
-    |romToInt x <= romToInt y = x : getThunk (y:xs)
+    |romDigit x <= romDigit y = x : getThunk (y:xs)
     |otherwise = [x]
 
 thunks :: String -> [String]
@@ -24,15 +24,15 @@ thunks xs = getThunk xs : thunks ( drop ( length $ getThunk xs )  xs )
 
 calcThunks :: [Char] -> Int
 calcThunks [] = 0
-calcThunks [x] = romToInt x
+calcThunks [x] = romDigit x
 calcThunks xs = calc (reverse xs)
     where calc [] = 0
-          calc [a] = romToInt a
+          calc [a] = romDigit a
           calc (a:b:ys) 
-                       | romToInt a > romToInt b = romToInt a - romToInt b - calc ys
-                       | otherwise = romToInt a + romToInt b + calc ys
+                       | romDigit a > romDigit b = romDigit a - romDigit b - calc ys
+                       | otherwise = romDigit a + romDigit b + calc ys
 
-romertall :: String -> Int
-romertall xs = sum $ map calcThunks $ thunks xs
+romToInt :: String -> Int
+romToInt xs = sum $ map calcThunks $ thunks xs
 
     
