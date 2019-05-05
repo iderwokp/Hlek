@@ -22,7 +22,17 @@ thunks :: String -> [String]
 thunks [] = []
 thunks xs = getThunk xs : thunks ( drop ( length $ getThunk xs )  xs ) 
 
+calcThunks :: [Char] -> Int
+calcThunks [] = 0
+calcThunks [x] = romToInt x
+calcThunks xs = calc (reverse xs)
+    where calc [] = 0
+          calc [a] = romToInt a
+          calc (a:b:ys) 
+                       | romToInt a > romToInt b = romToInt a - romToInt b - calc ys
+                       | otherwise = romToInt a + romToInt b + calc ys
 
-
+romertall :: String -> Int
+romertall xs = sum $ map calcThunks $ thunks xs
 
     
