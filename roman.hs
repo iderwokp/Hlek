@@ -35,4 +35,28 @@ calcThunks xs = calc (reverse xs)
 romToInt :: String -> Int
 romToInt xs = sum $ map calcThunks $ thunks xs
 
-    
+intToRom :: Int -> String
+intToRom 0 = []
+intToRom x
+    | x >= 1000 = 'M' : intToRom (x - 1000)
+    | x >= 500  = 'D' : intToRom (x - 500)
+    | x >= 100  = 'C' : intToRom (x - 100)
+    | x >= 50   = 'L' : intToRom (x - 50)
+    | x >= 10   = 'X' : intToRom (x - 10)
+    | x >= 5    = 'V' : intToRom (x - 5)
+    | x >= 1    = 'I' : intToRom (x -1)
+
+intToRom' :: Int -> [String]
+intToRom' 0 = []
+intToRom' x
+    | x >= 1000 = "M" : intToRom' (x - 1000)
+    | x >= 500  = "D" : intToRom' (x - 500)
+    | x >= 100  = "C" : intToRom' (x - 100)
+    | x >= 50   = "L" : intToRom' (x - 50)
+    | x >= 10   = "X" : intToRom' (x - 10)
+    | x >= 5    = "V" : intToRom' (x - 5)
+    | x >= 1    = "I" : intToRom' (x - 1)
+
+
+
+
