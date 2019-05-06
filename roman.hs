@@ -1,4 +1,8 @@
 
+import Data.Char
+-- import Data.String.Utils
+-- import Data.Text(pack, unpack, replace)
+
 romDigit ::Char-> Int
 -- romDigit [] = 0
 romDigit s 
@@ -33,7 +37,7 @@ calcThunks xs = calc (reverse xs)
                        | otherwise = romDigit a + romDigit b + calc ys
 
 romToInt :: String -> Int
-romToInt xs = sum $ map calcThunks $ thunks xs
+romToInt xs = sum $ map calcThunks $ thunks (map toUpper xs)
 
 intToRom :: Int -> String
 intToRom 0 = []
@@ -44,7 +48,7 @@ intToRom x
     | x >= 50   = 'L' : intToRom (x - 50)
     | x >= 10   = 'X' : intToRom (x - 10)
     | x >= 5    = 'V' : intToRom (x - 5)
-    | x >= 1    = 'I' : intToRom (x -1)
+    | x >= 1    = 'I' : intToRom (x - 1)
 
 intToRom' :: Int -> [String]
 intToRom' 0 = []
@@ -59,4 +63,26 @@ intToRom' x
 
 
 
+replaceStr :: String -> String -> String -> String
+replaceStr [] old new = []
+replaceStr str old new = loop str
+  where
+    loop [] = []
+    loop str =
+      let (prefix, rest) = splitAt n str
+      in
+        if old == prefix                -- found an occurrence?
+        then new ++ loop rest           -- yes: replace it
+        else head str : loop (tail str) -- no: keep looking
+    n = length old
+
+
+
+integToRom x = do 
+    replaceStr (intToRom x) "VIIII" "IX"  
+    replaceStr (intToRom x) "IIII" "IV"
+    replaceStr (intToRom x) "XIIII" "IL"  
+    replaceStr (intToRom x) "IIII" "IX"  
+    replaceStr (intToRom x) "VIIII" "IX"  
+    replaceStr (intToRom x) "VIIII" "IX"    
 
