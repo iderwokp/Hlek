@@ -39,27 +39,27 @@ calcThunks xs = calc (reverse xs)
 romToInt :: String -> Int
 romToInt xs = sum $ map calcThunks $ thunks (map toUpper xs)
 
-intToRom :: Int -> String
-intToRom 0 = []
-intToRom x
-    | x >= 1000 = 'M' : intToRom (x - 1000)
-    | x >= 500  = 'D' : intToRom (x - 500)
-    | x >= 100  = 'C' : intToRom (x - 100)
-    | x >= 50   = 'L' : intToRom (x - 50)
-    | x >= 10   = 'X' : intToRom (x - 10)
-    | x >= 5    = 'V' : intToRom (x - 5)
-    | x >= 1    = 'I' : intToRom (x - 1)
+digitToRom :: Int -> String
+digitToRom 0 = []
+digitToRom x
+    | x >= 1000 = 'M' : digitToRom (x - 1000)
+    | x >= 500  = 'D' : digitToRom (x - 500)
+    | x >= 100  = 'C' : digitToRom (x - 100)
+    | x >= 50   = 'L' : digitToRom (x - 50)
+    | x >= 10   = 'X' : digitToRom (x - 10)
+    | x >= 5    = 'V' : digitToRom (x - 5)
+    | x >= 1    = 'I' : digitToRom (x - 1)
 
-intToRom' :: Int -> [String]
-intToRom' 0 = []
-intToRom' x
-    | x >= 1000 = "M" : intToRom' (x - 1000)
-    | x >= 500  = "D" : intToRom' (x - 500)
-    | x >= 100  = "C" : intToRom' (x - 100)
-    | x >= 50   = "L" : intToRom' (x - 50)
-    | x >= 10   = "X" : intToRom' (x - 10)
-    | x >= 5    = "V" : intToRom' (x - 5)
-    | x >= 1    = "I" : intToRom' (x - 1)
+digitToRom' :: Int -> [String]
+digitToRom' 0 = []
+digitToRom' x
+    | x >= 1000 = "M" : digitToRom' (x - 1000)
+    | x >= 500  = "D" : digitToRom' (x - 500)
+    | x >= 100  = "C" : digitToRom' (x - 100)
+    | x >= 50   = "L" : digitToRom' (x - 50)
+    | x >= 10   = "X" : digitToRom' (x - 10)
+    | x >= 5    = "V" : digitToRom' (x - 5)
+    | x >= 1    = "I" : digitToRom' (x - 1)
 
 
 
@@ -77,12 +77,12 @@ replaceStr str old new = loop str
     n = length old
 
 
-
-integToRom x = do 
-    replaceStr (intToRom x) "VIIII" "IX"  
-    replaceStr (intToRom x) "IIII" "IV"
-    replaceStr (intToRom x) "XIIII" "IL"  
-    replaceStr (intToRom x) "IIII" "IX"  
-    replaceStr (intToRom x) "VIIII" "IX"  
-    replaceStr (intToRom x) "VIIII" "IX"    
+intToRom :: Int -> String
+intToRom x = do 
+    let x1 = replaceStr (digitToRom x) "VIIII" "IX"  
+    let x2 = replaceStr (x1) "IIII" "IV"
+    let x3 = replaceStr (x2) "LXXXX" "XC"  
+    let x4 = replaceStr (x3) "XXXX" "XL"  
+    let x5 = replaceStr (x4) "DCCCC" "CM"  
+    replaceStr (x5) "CCCC" "CD"    
 
