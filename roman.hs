@@ -1,4 +1,4 @@
-
+-- import Data.Strings
 import Data.Char
 -- import Data.String.Utils
 -- import Data.Text(pack, unpack, replace)
@@ -37,7 +37,7 @@ calcThunks xs = calc (reverse xs)
                        | otherwise = romDigit a + romDigit b + calc ys
 
 romToInt :: String -> Int
-romToInt xs = sum $ map calcThunks $ thunks (map toUpper xs)
+romToInt xs = sum $ map calcThunks $ thunks $ map toUpper xs 
 
 digitToRom :: Int -> String
 digitToRom 0 = []
