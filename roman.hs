@@ -86,3 +86,7 @@ intToRom x = do
     let x5 = replaceStr (x4) "DCCCC" "CM"  
     replaceStr (x5) "CCCC" "CD"    
 
+makeRomanList :: [Int] -> [String]
+makeRomanList [] = []
+makeRomanList (x:xs) = intToRom x : makeRomanList xs
+
