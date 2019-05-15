@@ -15,12 +15,32 @@ romDigit s
     | s == 'M' = 1000
     | otherwise  = 0
 
+romDigit' ::Char-> Maybe Int
+romDigit' s 
+    | s == 'I' = Just 1
+    | s == 'V' = Just 5
+    | s == 'X' = Just 10
+    | s == 'L' = Just 50
+    | s == 'C' = Just 100
+    | s == 'D' = Just 500
+    | s == 'M' = Just 1000
+    | otherwise  = Nothing
+
+
 getThunk :: [Char] -> [Char]
 getThunk [] = []
 getThunk [x] = [x]
 getThunk (x:y:xs) 
     |romDigit x <= romDigit y = x : getThunk (y:xs)
     |otherwise = [x]
+
+getThunk' :: [Char] -> Maybe [Char]
+getThunk' [] = []
+getThunk' [x] = [x]
+getThunk' (x:y:xs) 
+    |romDigit' x <= romDigit' y = x : getThunk' (y:xs)
+    |otherwise = [x]
+
 
 thunks :: String -> [String]
 thunks [] = []
