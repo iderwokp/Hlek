@@ -3,10 +3,12 @@ import Control.Concurrent
 
 main = do
   done <- newEmptyMVar
-  forkIO (do putStrLn "I'm one thread!"
+  forkIO (do threadDelay 5000000
+             putStrLn "I'm one thread!"
+            
              putMVar done "Done!")
-  second <- forkIO (do threadDelay 50000
-                       xx <- getLine
+  second <- forkIO (do threadDelay 500000
+--                       xx <- getLine
                        putStrLn "I'm another thread!")
   
   msg <- takeMVar done
