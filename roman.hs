@@ -1,5 +1,6 @@
 -- import Data.Strings
 import Data.Char
+import Control.Monad
 -- import Data.String.Utils
 -- import Data.Text(pack, unpack, replace)
 
@@ -35,11 +36,11 @@ getThunk (x:y:xs)
     |otherwise = [x]
 
 getThunk' :: [Char] -> Maybe [Char]
-getThunk' [] = []
-getThunk' [x] = [x]
+getThunk' [] = Just []
+getThunk' [x] = Just [x]
 getThunk' (x:y:xs) 
     |romDigit' x <= romDigit' y = x : getThunk' (y:xs)
-    |otherwise = [x]
+    |otherwise = Just [x]
 
 
 thunks :: String -> [String]
@@ -58,6 +59,23 @@ calcThunks xs = calc (reverse xs)
 
 romToInt :: String -> Int
 romToInt xs = sum $ map calcThunks $ thunks $ map toUpper xs 
+
+thunks' :: String -> Maybe [String]
+thunks' [] = Just []
+thunks' xs = getThunk' xs : thunks' ( drop ( length $ getThunk' xs )  xs )
+
+calcThunks' :: [Char] -> Maybe Int
+calcThunks' Just  [] = 0
+calcThunks' [x] = romDigit' x
+calcThunks' xs = calc (reverse xs)
+    where calc [] = 0
+          calc [a] = romDigit' a
+          calc (a:b:ys)
+                       | romDigit' a > romDigit' b = romDigit' a - romDigit' b - calc ys
+                       | otherwise = romDigit' a + romDigit' b + calc ys
+
+romToInt' :: String -> Maybe Int
+romToInt' xs = sum $ map calcThunks' $ thunks' $ map toUpper xs
 
 digitToRom :: Int -> String
 digitToRom 0 = []
