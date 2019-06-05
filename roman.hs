@@ -16,16 +16,6 @@ romDigit s
     | s == 'M' = 1000
     | otherwise  = 0
 
-romDigit' ::Char-> Maybe Int
-romDigit' s 
-    | s == 'I' = Just 1
-    | s == 'V' = Just 5
-    | s == 'X' = Just 10
-    | s == 'L' = Just 50
-    | s == 'C' = Just 100
-    | s == 'D' = Just 500
-    | s == 'M' = Just 1000
-    | otherwise  = Nothing
 
 
 getThunk :: [Char] -> [Char]
@@ -35,12 +25,6 @@ getThunk (x:y:xs)
     |romDigit x <= romDigit y = x : getThunk (y:xs)
     |otherwise = [x]
 
-getThunk' :: [Char] -> Maybe [Char]
-getThunk' [] = Just []
-getThunk' [x] = Just [x]
-getThunk' (x:y:xs) 
-    |romDigit' x <= romDigit' y = x : getThunk' (y:xs)
-    |otherwise = Just [x]
 
 
 thunks :: String -> [String]
@@ -60,6 +44,27 @@ calcThunks xs = calc (reverse xs)
 romToInt :: String -> Int
 romToInt xs = sum $ map calcThunks $ thunks $ map toUpper xs 
 
+-------- Med monad ---------------------------------------------------------------------------
+
+romDigit' ::Char-> Maybe Int
+romDigit' s 
+    | s == 'I' = Just 1
+    | s == 'V' = Just 5
+    | s == 'X' = Just 10
+    | s == 'L' = Just 50
+    | s == 'C' = Just 100
+    | s == 'D' = Just 500
+    | s == 'M' = Just 1000
+    | otherwise  = Nothing
+
+
+getThunk' :: [Char] -> Maybe [Char]
+getThunk' [] = Just []
+getThunk' [x] = Just [x]
+getThunk' (x:y:xs) 
+    |romDigit' x <= romDigit' y = x : getThunk' (y:xs)
+    |otherwise = Just [x]
+
 thunks' :: String -> Maybe [String]
 thunks' [] = Just []
 thunks' xs = getThunk' xs : thunks' ( drop ( length $ getThunk' xs )  xs )
@@ -76,6 +81,10 @@ calcThunks' xs = calc (reverse xs)
 
 romToInt' :: String -> Maybe Int
 romToInt' xs = sum $ map calcThunks' $ thunks' $ map toUpper xs
+
+
+
+----------------------------Andre veien ---------------------------------------------------
 
 digitToRom :: Int -> String
 digitToRom 0 = []
