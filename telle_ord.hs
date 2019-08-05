@@ -12,7 +12,12 @@ tuple_sort ((i, s):xs) = tuple_sort sm ++ [(i, s)] ++ tuple_sort la
         sm = [(ii, ss) | (ii, ss) <- xs, ii<=i]
         la = [(ii, ss) | (ii, ss) <- xs, ii>i]
         
-
+skriv_liste :: Show b =>[(Int, b)] -> IO ()
+skriv_liste xs = 
+            putStrLn . concat $ map skriv xs
+              where
+                skriv (i, a) = show(i) ++ " : " ++ show(a) ++ "\n"
+                
 --  let talt = tuple_sort . tail . telle (0, ' ') . sort $ tekst
 
 
