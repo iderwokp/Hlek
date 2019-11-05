@@ -58,29 +58,44 @@ romDigit' s
     | otherwise  = Nothing
 
 
-getThunk' :: [Char] -> Maybe [Char]
-getThunk' [] = Just []
-getThunk' [x] = Just [x]
+getThunk' :: String ->  Maybe String
+getThunk' [] =  Just []
+getThunk' [x] =  Just [x]
 getThunk' (x:y:xs) 
-    |romDigit' x <= romDigit' y = x : getThunk' (y:xs)
-    |otherwise = Just [x]
+ --   |romDigit' [] = Just []
+    |romDigit' x == Nothing = Nothing
+--    |romDigit' y == Nothing = Nothing
+    |romDigit' x <= romDigit' y = (:) <$> Just x <*> getThunk' (y:xs) --Just x : getThunk' (y:xs)
+    |otherwise =  Just [x]
 
-thunks' :: String -> Maybe [String]
-thunks' [] = Just []
-thunks' xs = getThunk' xs : thunks' ( drop ( length $ getThunk' xs )  xs )
+lengde :: Foldable t => Maybe (t a) -> Int
+lengde (Just xs) = length xs
+lengde Nothing = 1
 
-calcThunks' :: [Char] -> Maybe Int
-calcThunks' Just  [] = 0
-calcThunks' [x] = romDigit' x
-calcThunks' xs = calc (reverse xs)
-    where calc [] = 0
-          calc [a] = romDigit' a
-          calc (a:b:ys)
-                       | romDigit' a > romDigit' b = romDigit' a - romDigit' b - calc ys
-                       | otherwise = romDigit' a + romDigit' b + calc ys
+thunks' :: String ->  [Maybe String]
+thunks' [] =  []
+thunks' xs = getThunk' xs : thunks' ( drop ( lengde $ getThunk' xs )  xs )
 
-romToInt' :: String -> Maybe Int
-romToInt' xs = sum $ map calcThunks' $ thunks' $ map toUpper xs
+calc' :: Maybe String -> Maybe Int
+calc' (Just []) = Just 0
+calc' Nothing = Nothing
+--calc' [a] = a >>= romDigit' 
+calc' (Just (a:b:ys))
+        | ((Just a) >>= romDigit' )  > ((Just b) >>= romDigit') = (-) <$> ((-) <$> ((Just a) >>= romDigit')  <*> ((Just b) >>= romDigit'))  <*> calc' (Just ys)
+        | otherwise = (+)<$> ((+) <$> ((Just a) >>= romDigit')  <*> ((Just b) >>= romDigit'))  <*> calc' (Just ys)
+
+calcThunks' :: Maybe String -> Maybe Int
+calcThunks' Nothing = Nothing
+--calcThunks' (Just "") = Just 0
+calcThunks' (Just [x]) = (Just x) >>= romDigit' -- Just (romDigit' x)
+calcThunks' (Just xs) = calc' (Just (reverse xs)) -- > Butter imot her
+
+summ a b = (+) <$> a <*> b
+
+--romToInt' :: String -> Maybe Int
+--romToInt' xs = sum $ map calcThunks' $ thunks' $ map toUpper xs
+-- romToInt' xs = map calcThunks' $ thunks' $ map toUpper xs
+romToInt' xs = foldl summ (Just 0) $ map calcThunks' $ thunks' $ map toUpper xs
 
 
 
