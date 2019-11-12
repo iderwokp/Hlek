@@ -1,5 +1,6 @@
 
 import Data.Fixed
+import Numeric
 
 data Linse = Linse 
     {
@@ -7,7 +8,7 @@ data Linse = Linse
         ,cylinder :: Float
         ,axis :: Float 
     }
-        deriving(Show, Eq)
+        deriving(Eq)
         
 -- data Vector2d 
 mPI = 3.14159265 :: Float
@@ -38,11 +39,12 @@ lt6 = Linse (5.25) (-1.5) 170
 linser = [lt1,lt2,lt3,lt4,lt5,lt6]
 planLinse = Linse 0 0 0
 
+instance Show Linse where
+    show (Linse s c a) = (showFFloat (Just 2) s "") ++"/" ++ (showFFloat (Just 2) c "" )++ "x" ++ (showFFloat (Just 0) a "")-- "Rectangle with base " ++ show w ++ " and height " ++ show h
 
 linseAdd :: Linse -> Linse -> Linse
 linseAdd l1@(Linse s1 c1 aa1) l2@(Linse s2 c2 aa2) = do
-                         --let lc1 = convCyl l1
-                         --let lc2 = convCyl l2
+                         
                          let a1 = sanitizeAxe aa1
                          let a2 = sanitizeAxe aa2 
                          let rad_a = degToRad $ abs $ a2 - a1
