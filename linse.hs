@@ -67,6 +67,10 @@ addLinser  l1@(Linse s1 c1 a1) l2@(Linse s2 c2 a2)
                          | sanitizeAxe a1 < sanitizeAxe a2 = linseAdd l2 l1
                          | otherwise = linseAdd l1 l2
                          
-                         
+--(:+:) :: Linse -> Linse -> Linse
+--infixl 5 :+:
+(<+>) = addLinser
+--l1 :+: l2 = addLinser l1 l2
+ 
                          
                          
