@@ -36,6 +36,9 @@ lt3 = Linse (-5) (-2.25) 145
 lt4 = Linse (-5.25) (-1.5) 60
 lt5 = Linse (-5) (-0.5) 120
 lt6 = Linse (5.25) (-1.5) 170
+lt7 = Linse 2.0 (-1.5) 135
+lt8 = Linse 2.0 (-1.5) 45
+
 linser = [lt1,lt2,lt3,lt4,lt5,lt6]
 planLinse = Linse 0 0 0
 
