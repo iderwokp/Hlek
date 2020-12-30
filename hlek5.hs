@@ -1,6 +1,11 @@
 
 
+--import Main
 
+main = do
+       fakt 1000
+     
+     
 
 -- Tail rekursiv fakt funksjon
 
@@ -12,7 +17,7 @@ fakthelp n acc
 fakt :: (Eq t, Num t) => t -> t
 fakt n = fakthelp n 1
 
-fakt' :: (Eq p, Num p) => p -> p
-fakt' n
-      | n == 1 = 1
-      |otherwise = n*fakt' (n-1)
+--fakt' :: (Eq p, Num p) => p -> p
+--fakt' n
+--      | n == 1 = 1
+--      |otherwise = n*fakt' (n-1)

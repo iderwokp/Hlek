@@ -2,3 +2,5 @@ ghci-8.4.3.exe - Snarvei.lnk
 learnyouahaskell.pdf
 GeanyPortable.exe - Snarvei.lnk
 winghci.exe - Snarvei.lnk
+*.o
+*.exe
