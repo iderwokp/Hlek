@@ -4,3 +4,6 @@ GeanyPortable.exe - Snarvei.lnk
 winghci.exe - Snarvei.lnk
 *.o
 *.exe
+*.dll
+sdl2_test/.stack-work/
+sdl2_test/dist-newstyle/

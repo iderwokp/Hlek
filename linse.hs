@@ -76,4 +76,20 @@ addLinser  l1@(Linse s1 c1 a1) l2@(Linse s2 c2 a2)
 --l1 :+: l2 = addLinser l1 l2
  
                          
+-- linseAdd' :: Linse -> Linse -> Linse
+-- linseAdd' l1@(Linse s1 c1 aa1) l2@(Linse s2 c2 aa2) = do
                          
+                         -- a1 <- sanitizeAxe aa1
+                         -- a2 <- sanitizeAxe aa2 
+                         -- rad_a <- degToRad $ abs $ a2 - a1
+                         -- teller <- c2 * sin (2*rad_a)
+                         -- nevner <- c1 + c2 * cos(2*rad_a)
+                         -- let th_rad | nevner == 0 = 0 | otherwise = atan(teller/nevner)/2
+                         -- s <- c1*(sin(th_rad)*sin(th_rad))+c2*(sin(rad_a-th_rad)*sin(rad_a-th_rad))
+                         -- c <- c1+c2-2*s;
+                         -- akse <- radToDeg th_rad + a1
+                         -- sp <- s+s1+s2
+                         -- --if (sanitizeAxe akse) <= 90
+                            -- -- then convCyl(Linse sp c (sanitizeAxe akse))
+                            -- -- else Linse sp c (sanitizeAxe akse)
+                         -- Linse sp c (sanitizeAxe akse)                 
